@@ -1,0 +1,7 @@
+applications:
+- name: lang-trans-013-nodejs
+  command: npm start
+  path: .
+  random-route: true
+  host: lang-trans-013
+  memory: 128M
