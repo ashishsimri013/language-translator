@@ -20,7 +20,7 @@ $(document).ready(function () {
   var modelList = [];
   var pageDomain = '';
   var sourceList = [];
-  var sourceLangSelect = 'Choose Language';
+  var sourceLangSelect = '';
   var langAbbrevList = [];
   var nmtValue  = '2018-05-01';
 
@@ -71,37 +71,37 @@ $(document).ready(function () {
   });
 
   // Get list of Models after getting languages
-  $.ajax({
-    type: 'GET',
-    url: '/api/models',
-    headers: {
-      'X-Watson-Technology-Preview': nmtValue
-    },
-    async: true
-  })
-    .done(function (data) {
-      //console.log(data + " response received");
-      modelList = data.models;
+  // $.ajax({
+  //   type: 'GET',
+  //   url: '/api/models',
+  //   headers: {
+  //     'X-Watson-Technology-Preview': nmtValue
+  //   },
+  //   async: true
+  // })
+  //   .done(function (data) {
+  //     //console.log(data + " response received");
+  //     modelList = data.models;
 
-      // Get list of languages
-      $.ajax({
-        type: 'GET',
-        url: '/api/identifiable_languages',
-        headers: {
-          'X-Watson-Technology-Preview': nmtValue
-        },
-        async: true
-      })
-        .done(function (data) {
-          //console.log("demo.js identifiable",data);
-          langAbbrevList = data.languages;
-          // select news option in domain and update dropdown with language selections
-          $('input:radio[name=group1]:nth(1)').prop('checked', true).trigger('click');
-        });
-    })
-    .fail(function (jqXHR, statustext, errorthrown) {
-      console.log(statustext + errorthrown);
-    });
+  //     // Get list of languages
+  //     $.ajax({
+  //       type: 'GET',
+  //       url: '/api/identifiable_languages',
+  //       headers: {
+  //         'X-Watson-Technology-Preview': nmtValue
+  //       },
+  //       async: true
+  //     })
+  //       .done(function (data) {
+  //         //console.log("demo.js identifiable",data);
+  //         langAbbrevList = data.languages;
+  //         // select news option in domain and update dropdown with language selections
+  //         // $('input:radio[name=group1]:nth(1)').prop('checked', true).trigger('click');
+  //       });
+  //   })
+  //   .fail(function (jqXHR, statustext, errorthrown) {
+  //     console.log(statustext + errorthrown);
+  //   });
 
   // Update dropdown Menu Input value with source lang selected
   $('#ulSourceLang').on('click', 'a', function (e) {
@@ -116,7 +116,7 @@ $(document).ready(function () {
         doneTyping();
       }
     }
-    updateOutputDropdownMenu();
+    //updateOutputDropdownMenu();
     getTranslation();
   });
 
@@ -124,7 +124,8 @@ $(document).ready(function () {
   $('#ulTargetLang').on('click', 'a', function (e) {
     e.preventDefault();
     //console.log('click href ' + $(this).text());
-    $('#dropdownMenuOutput').html('').html($(this).text() + '<span class="caret"></span>');
+    
+    $('#dropdownMenuOutput').html('').html($(this).text() + '<span class="caret" data-target="'+$(this).attr('data-code')+'"></span>');
     getTranslation();
   });
 
@@ -142,10 +143,11 @@ $(document).ready(function () {
       $('#profile2 textarea').val('');
 
       if ((sourceLangSelect.toLowerCase() === 'detect language') || (sourceLangSelect.toLowerCase() === 'choose language')) {
-        $('#dropdownMenuInput').html('Choose Language <span class="caret"></span>');
+        // $('#dropdownMenuInput').html('Choose Language <span class="caret"></span>');
         $('#dropdownMenuOutput').html('Choose Language <span class="caret"></span>');
       }
     }
+    console.log('typing')
     clearTimeout(typingTimer);
     typingTimer = setTimeout(doneTyping, doneTypingInterval);
 
@@ -160,13 +162,13 @@ $(document).ready(function () {
   // Reset all the values on page
   $('#resetSpan').click(function (e) {
     e.preventDefault();
-    $('#dropdownMenuInput').html('Choose Language <span class="caret"></span>');
+    // $('#dropdownMenuInput').html('Choose Language <span class="caret"></span>');
     $('#dropdownMenuOutput').html('Choose Language <span class="caret"></span>');
     $('#home textarea').val('');
     $('#home2 textarea').val('');
     $('#profile textarea').val('');
     $('#profile2 textarea').val('');
-    sourceLangSelect = 'Choose Language';
+    // sourceLangSelect = 'Choose Language';
   });
 
   /* -------------------------------- Functions start from here ---------------------------------------- */
@@ -177,6 +179,7 @@ $(document).ready(function () {
     // if option selected for dropdown is detect or choose language then send request for service to get lang-id
     if (((sourceLangSelect.toLowerCase() === 'detect language') || (sourceLangSelect.toLowerCase() === 'choose language')) && (parseInt($('#home textarea').val().length) > 0)) {
       // Create call for AJAX and to get Lang-Id for text
+      console.log('111');
       var restAPICall = {
         type: 'POST',
         url: '/api/identify',
@@ -190,43 +193,45 @@ $(document).ready(function () {
       };
 
       var oldSrcLang = $('#dropdownMenuInput').html();
-      $('#dropdownMenuInput').html('detecting language...');
-      $.ajax(restAPICall)
-        .done(function (data) {
-          //console.log(data + "  data " + langAbbrevList[data]);
-          var langIdentified = false;
-          //console.log("detected language code is " + data);
-          data = data.languages[0].language;
-          var dataLangName = getLanguageName(data);
-          //console.log("detected language as " + dataLangName);
-          $.each(sourceList, function (index, value) {
-            //console.log(value.source + ' source value ' +  getLanguageName(data));
-            if (value.source == dataLangName) {
-              langIdentified = true;
-            }
-          });
+      // $('#dropdownMenuInput').html('detecting language...');
+      // $.ajax(restAPICall)
+      //   .done(function (data) {
+      //     //console.log(data + "  data " + langAbbrevList[data]);
+      //     var langIdentified = false;
+      //     //console.log("detected language code is " + data);
+      //     data = data.languages[0].language;
+      //     var dataLangName = getLanguageName(data);
+      //     //console.log("detected language as " + dataLangName);
+      //     $.each(sourceList, function (index, value) {
+      //       //console.log(value.source + ' source value ' +  getLanguageName(data));
+      //       if (value.source == dataLangName) {
+      //         langIdentified = true;
+      //       }
+      //     });
 
-          if (langIdentified) {
-            //console.log('lang identified');
-            // If souce lang is same as identified land then add in dropdown Input menu
-            $('#dropdownMenuInput').html('').html(dataLangName + ' <span class="caret"></span>');
-          } else {
-            //console.log('lang not identified');
-            $('#dropdownMenuInput').html('').html(dataLangName + ': not supported for this domain <span class="caret"></span>');
-          }
-          // update outputDropDown only when the detected source changed
-          if (oldSrcLang != $('#dropdownMenuInput').html())
-            updateOutputDropdownMenu();
-          getTranslation();
-        })
-        .always(function () {
-          getTranslation();
-        })
-        .fail(function (jqXHR, statustext, errorthrown) {
-          $('#dropdownMenuInput').html(oldSrcLang);
-          console.log(statustext + errorthrown);
-        });
+      //     if (langIdentified) {
+      //       //console.log('lang identified');
+      //       // If souce lang is same as identified land then add in dropdown Input menu
+      //       $('#dropdownMenuInput').html('').html(dataLangName + ' <span class="caret"></span>');
+      //     } else {
+      //       //console.log('lang not identified');
+      //       $('#dropdownMenuInput').html('').html(dataLangName + ': not supported for this domain <span class="caret"></span>');
+      //     }
+      //     // update outputDropDown only when the detected source changed
+      //     if (oldSrcLang != $('#dropdownMenuInput').html())
+      //       updateOutputDropdownMenu();
+      //     getTranslation();
+      //   })
+      //   .always(function () {
+      //     getTranslation();
+      //   })
+      //   .fail(function (jqXHR, statustext, errorthrown) {
+      //     $('#dropdownMenuInput').html(oldSrcLang);
+      //     console.log(statustext + errorthrown);
+      //   });
     } else {
+      console.log('222');
+
       //console.log('gettranslation  not in if');
       getTranslation();
     }
@@ -330,7 +335,7 @@ $(document).ready(function () {
   // Send request to translate service if input-output and textarea have values
   function getTranslation() {
     var pageDomain = '';
-    var source = '';
+    var source = 'en';
     var target = '';
     var textContent = '';
 
@@ -338,12 +343,12 @@ $(document).ready(function () {
       pageDomain = $('input:radio[name=group1]:checked').val();
     }
 
-    if (($('#dropdownMenuInput').text()).toLowerCase().indexOf('choose language') < 0) {
-      source = getLanguageCode($.trim($('#dropdownMenuInput').text()));
-    }
+    // if (($('#dropdownMenuInput').text()).toLowerCase().indexOf('choose language') < 0) {
+    //   source = getLanguageCode($.trim($('#dropdownMenuInput').text()));
+    // }
 
     if (($('#dropdownMenuOutput').text()).toLowerCase().indexOf('choose language') < 0) {
-      target = getLanguageCode($.trim($('#dropdownMenuOutput').text()));
+      target = $.trim($('#dropdownMenuOutput').find('span').attr('data-target'));
     }
 
     if ((parseInt($('#home textarea').val().length) > 0)) {
@@ -351,14 +356,16 @@ $(document).ready(function () {
     }
 
     // get model_id from domain, source and target
-    var model_id = getModelId(pageDomain, source, target);
-
-    if (pageDomain && source && target && textContent && model_id) {
+    //var model_id = getModelId(pageDomain, source, target);
+    console.log(source,target)
+    if (pageDomain && source && target && textContent) {
       //console.log('source-' + source + '  target-' + target + '   textContent-' + textContent);
 
       // Create call for AJAX and to populate REST API tab
       var callData = {
-        model_id: model_id,
+        // model_id: model_id,
+        source:source,
+        target:target,
         text: textContent
       };
 
@@ -380,14 +387,16 @@ $(document).ready(function () {
       $.ajax(restAPICall)
         .done(function (data) {
           $('#home2 textarea').val(data['translations'][0]['translation']);
-          $('#profile2 textarea').val(JSON.stringify(data, null, 2));
+          // $('#profile2 textarea').val(JSON.stringify(data, null, 2));
         })
         .fail(function (jqXHR, statustext, errorthrown) {
           $('#home2 textarea').val('translation error');
           console.log(statustext + errorthrown);
         });
     } else {
-      console.log('not all values' + 'source- ' + source + '  target- ' + target + '   textContent- ' + textContent + ' model_id - ' + model_id);
+      console.log('not all values' + 'source- ' + source + '  target- ' + target + '   textContent- ' + textContent);
+      $('#home2 textarea').val('');
+
     }
   } // get Translation end here
 
