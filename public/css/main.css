@@ -1,0 +1,65 @@
+
+.container-fluid {
+    background-color: #00b8ffe3;
+    color: white;
+    height: 100%;
+}
+
+.header_text {
+    font-size: 2.5rem;
+}
+
+.container_divs {
+    box-shadow: 5px 5px 5px gray;
+    padding: 10%;
+}
+.hello {
+    font-size: 40px;
+    color: white;
+    width: 100%;
+}
+
+.lower-div {
+    font-size: 16pt;
+    box-shadow: -2px 1px 9px #0c6ba2;
+}
+
+.left-div {
+    height: 340px;
+    background-color: rgba(121, 205, 245, 0.53);
+}
+
+.right-div {
+    background-color: white;
+    height: 340px;
+    color: #00b8ffe3;
+}
+
+.input-boxes {
+    border: none;
+    background-color: transparent;
+    color: white;
+}
+
+input:focus{
+    outline: none;
+    border: none;
+}
+input::placeholder{
+    color: white;
+}
+
+.lang-text {
+    font-weight: 500;
+}
+.white-input::placeholder{
+    color: #0c6ba2;
+}
+.white-input{
+    color: #0c6ba2;
+}
+.select {
+    color: #00b8ffe3;
+    outline: none;
+    border: none;
+}
