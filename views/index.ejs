@@ -1,34 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Translator</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/main.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-   
+    <title>Translate</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+
+        .main-container {
+            /*            background: linear-gradient(to right, #5fa7d8 , #54cec7);*/
+            /*            background-color: white!important;*/
+            background-color: #f3f3f3e8 !important;
+            /*            background: linear-gradient(to right, #6bb7ec , #8ae4df);*/
+            /*            background: linear-gradient(to right, #ff290796 , #ffb13bab);*/
+            color: white;
+        }
+
+        .input-boxes {
+            outline: none;
+            border: none;
+            background-color: transparent;
+            color: white;
+        }
+
+        textarea {
+            height: 250px;
+            width: 320px;
+        }
+    </style>
 </head>
-    
+
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12 p-5">
-                <span class="header_text text-center">Translate</span>
-                <span class="float-right mt-4">
-                    <img src="/images/help-icon.png" width="25" height="25">
-                </span>
+    <div class="main-container">
+        <header>
+            <div class="row p-3">
+                <div class="col-sm-12">
+                    <span class="header_text text-center">Translate</span>
+                    <span class="float-right mt-3">
+                        <img src="/images/help-icon.png" width="25" height="25">
+                    </span>
+                </div>
             </div>
-        </div>
-        <div class="row text-center mt-3">
+        </header>
+        <div class="row text-center mt-5">
             <div class="col-sm-12">
                 <div class="hello">
                     <p id="greeting">WORDS TRAVEL WORLD.<br>TRANSLATORS DO THE DRIVING.</p>
                 </div>
             </div>
         </div>
+
+        <div class="row mt-4 boxes-parent">
+            <div class="col-sm-5 offset-sm-1">
+                <div class="original-text-div">
+                    <div class="float-left lang-text">English</div>
+                    <!--                    <div class="clear float-right mr-3">x</div>-->
+                    <div class="col-sm-12 p-5 text-center mt-3">
+                        <textarea type="text" placeholder="Enter your text here" class="input-boxes" id="source_text"></textarea>
+                    </div>
+                </div>
+            </div><img src="/images/Arrow.png" class="arrow-img">
+            <div class="col-sm-5">
+                <div class="translated-div">
+                    <div class="float-left lang-text">
+                        <select class="select" id="targetLanguage">
+                            <option value="">Choose language</option>
+                            <option value="es">Spanish</option>
+                            <option value="ar">Arabic</option>
+                            <option value="fr">French</option>
+                            <option value="it">Italian</option>
+                            <option value="pt">Portuguese</option>
+                            <option value="de">German</option>
+                        </select>
+                    </div>
+                    <!--
+                    <div class="clear float-right mr-3">
+                        <img src="images/refresh_icon.png" width="25" height="25">
+                    </div>
+-->
+                    <div class="col-sm-12 p-2 text-center mt-5">
+                        <textarea type="text" placeholder="Translated text" class="input-boxes" id="translated_result"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--
         <div class="row mt-5 lower-div ml-3 mr-3 mb-4">
             <div class="col-sm-6 left-div p-2">
                 <div class="row w-100 m-3">
@@ -39,8 +104,7 @@
                 </div> 
                 <div class="row">
                     <div class="col-sm-12 p-5 text-center mt-3">
-                        <input type="text" placeholder="Enter your text here" class="input-boxes" id="source_text">
-                        <!-- <textarea name="" id="" cols="30" rows="10" class="input-boxes" placeholder="Enter your text here"></textarea> -->
+                        <textarea type="text" placeholder="Enter your text here" class="input-boxes"></textarea>
                     </div>
                 </div>
             </div>
@@ -48,63 +112,63 @@
                 <div class="row w-100 m-3">
                     <div class="col-sm-12">
                         <div class="float-left lang-text">
-                            <select class="select" id="targetLanguage">
-                                <option value="">Choose language</option>
-                                <option value="es">Spanish</option>
-                                <option value="ar">Arabic</option>
-                                <option value="fr">French</option>
-                                <option value="it">Italian</option>
-                                <option value="pt">Portuguese</option>
-                                <option value="de">German</option>
+                            <select class="select">
+                                <option>Spanish</option>
+                                <option>Arabic</option>
+                                <option>French</option>
+                                <option>Italian</option>
+                                <option>Portuguese</option>
                             </select>
                         </div>
                         <div class="clear float-right mr-3">
-                            <img src="/images/refresh_icon.png" width="25" height="25">
+                            <img src="images/refresh_icon.png" width="25" height="25">
                         </div>
                     </div>
                 </div> 
                 <div class="row">
                     <div class="col-sm-12 p-5 text-center">
-                        <input type="text" class="input-boxes white-input" id="translated_result">
+                        <input type="text" class="input-boxes white-input">
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-       
-            var dataText = ["WORDS TRAVEL WORLD.<br>TRANSLATORS DO THE DRIVING.","PALABRAS TRAVEL WORLD.<br>LOS TRADUCTORES HACEN LA CONDUCCIÓN.", "MOTS VOYAGER DANS LE MONDE.<br>LES TRADUCTEURS CONDUISENT.","AS PALAVRAS VIAJAM PELO MUNDO.<br>OS TRADUTORES FAZEM A CONDUÇÃO.","عالم سفر الكلمات<br>المترجمون يقومون بالقيادة","WORDS TRAVEL WORLD.<br>I TRADUTTORI GUIDANO."];
-            var i=1;
-           
+-->
+        <script>
+
+            var dataText = ["WORDS TRAVEL WORLD.<br>TRANSLATORS DO THE DRIVING.", "PALABRAS TRAVEL WORLD.<br>LOS TRADUCTORES HACEN LA CONDUCCIÓN.", "MOTS VOYAGER DANS LE MONDE.<br>LES TRADUCTEURS CONDUISENT.", "AS PALAVRAS VIAJAM PELO MUNDO.<br>OS TRADUTORES FAZEM A CONDUÇÃO.", "عالم سفر الكلمات<br>المترجمون يقومون بالقيادة", "WORDS TRAVEL WORLD.<br>I TRADUTTORI GUIDANO."];
+            var i = 1;
+
             function cycleGreeting() {
                 $(".hello p#greeting").fadeOut("slow", function () {
                     if (i == dataText.length) {
-                        i=0;
-    //                    window.location.reload(false);
+                        i = 0;
+                        //                    window.location.reload(false);
                     }
                     $(".hello p#greeting").html(dataText[i]);
                     i++;
                 }).fadeIn("slow");
             }
-           function HelloText() {
+            function HelloText() {
                 $("#text_content").fadeIn("slow");
-                t = setInterval(cycleGreeting, 4000);
+                t = setInterval(cycleGreeting, 5000);
             }
-            $(document).ready(function(){
+            $(document).ready(function () {
                 HelloText();
-                
+
                 var bodyHeight = $(document).height();
-                $('.container-fluid').css('height', bodyHeight);
+                $('.main-container').css('height', bodyHeight);
             });
-           
-           var input = document.querySelector('input'); // get the input element
-            input.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
-            resizeInput.call(input); // immediately call the function
-    
+
+            // var input = document.querySelector('input'); // get the input element
+            // input.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
+            // resizeInput.call(input); // immediately call the function
+
             function resizeInput() {
-              this.style.width = (this.value.length) ? this.value.length+"ch" : "30ch";
+                this.style.width = this.value.length + "ch";
             }
         </script>
         <script type="text/javascript" src="main.js"></script>
+    </div>
 </body>
+
 </html>

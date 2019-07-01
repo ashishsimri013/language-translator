@@ -15,8 +15,9 @@
 }
 .hello {
     font-size: 40px;
-    color: white;
+    color: #505050e8;
     width: 100%;
+    font-style: italic;
 }
 
 .lower-div {
@@ -45,7 +46,7 @@ input:focus{
     outline: none;
     border: none;
 }
-input::placeholder{
+textarea::placeholder{
     color: white;
 }
 
@@ -62,4 +63,55 @@ input::placeholder{
     color: #00b8ffe3;
     outline: none;
     border: none;
+    display: block;
+    /* width: 550px; */
+    /* height: 60px; */
+    color: rgba(0,0,0,0.9);
+    font-family: Calibri;
+    font-size: 15pt;
+    padding: 10px;
+    margin: 7.5px auto;
+    border-radius: 5px;
+}
+
+header{
+/*    background-color: rgba(5,84,123,0.3);*/
+    background-color : rgba(228, 44, 44, 0.3)
+}
+
+.original-text-div {
+    background-image: url('/images/Lilly_Translator1.png');
+    box-shadow: 5px 5px 5px #7b6565;
+    border-radius: 40px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    padding: 6% 7%;
+    font-size: 18pt;
+    height: 94%;
+}
+
+.translated-div {
+    background-image: url('/images/Lilly_Translator2.png');
+    background-size: 100%;
+    border-radius: 39px;
+    box-shadow: 5px 5px 5px #7b6565;
+    background-repeat: no-repeat;
+    padding: 6% 7%;
+    font-size: 18pt;
+    height: 94%;
+}
+
+
+
+.arrow-img {
+    height: 20px;
+    width: 77px;
+    left: 47%;
+    z-index: 2;
+    top: 50%;
+    position: absolute;
+}
+
+.boxes-parent {
+    position: relative;
 }
