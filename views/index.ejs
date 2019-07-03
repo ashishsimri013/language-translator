@@ -62,7 +62,19 @@
         <div class="row mt-4 boxes-parent">
             <div class="col-sm-5 offset-sm-1">
                 <div class="original-text-div">
-                    <div class="float-left lang-text">English</div>
+                    <!-- <div class="float-left lang-text">English</div> -->
+                    <div class="float-left lang-text">
+                        <select class="select" id="sourceLanguage">
+                            <option value="">Detect language</option>
+                            <option value="en">English</option>
+                            <option value="es">Spanish</option>
+                            <option value="ar">Arabic</option>
+                            <option value="fr">French</option>
+                            <option value="it">Italian</option>
+                            <option value="pt">Portuguese</option>
+                            <option value="de">German</option>
+                        </select>
+                    </div>
                     <!--                    <div class="clear float-right mr-3">x</div>-->
                     <div class="col-sm-12 p-5 text-center mt-3">
                         <textarea type="text" placeholder="Enter your text here" class="input-boxes" id="source_text"></textarea>
@@ -74,6 +86,7 @@
                     <div class="float-left lang-text">
                         <select class="select" id="targetLanguage">
                             <option value="">Choose language</option>
+                            <option value="en">English</option>
                             <option value="es">Spanish</option>
                             <option value="ar">Arabic</option>
                             <option value="fr">French</option>
